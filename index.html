@@ -1,0 +1,1077 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>2026학년도 전자기와 양자</title>
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)'], ['$', '$']],
+        displayMath: [['\\[', '\\]'], ['$$', '$$']]
+      },
+      svg: {
+        fontCache: 'global',
+        scale: 0.92
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <style>
+    :root{
+      --bg:#f7fbff;
+      --surface:#ffffff;
+      --surface-soft:#eef8ff;
+      --text:#16324f;
+      --muted:#60758c;
+      --line:#d9eaf5;
+      --blue:#2389da;
+      --blue-dark:#1269b0;
+      --cyan:#52c7d9;
+      --yellow:#ffd166;
+      --shadow:0 18px 50px rgba(39,104,145,.14);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:'Pretendard','Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      font-size:18px;
+      line-height:1.65;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 8% 8%, rgba(255,209,102,.34), transparent 24rem),
+        radial-gradient(circle at 92% 15%, rgba(82,199,217,.24), transparent 28rem),
+        linear-gradient(180deg,#fafdff 0%,#f4fbff 50%,#fffdf7 100%);
+      min-height:100vh;
+    }
+
+    a{color:inherit}
+    button,input{font:inherit}
+    .wrap{max-width:1100px;margin:0 auto;padding:22px 20px 64px}
+
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      padding:12px 0 22px;
+      margin-bottom:24px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:900;
+      letter-spacing:-.03em;
+    }
+
+    .brand-mark{
+      width:44px;
+      height:44px;
+      border-radius:15px;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(135deg,var(--yellow),#fff1ad);
+      box-shadow:0 10px 25px rgba(255,190,57,.28);
+      font-size:23px;
+    }
+
+    nav{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    nav a{
+      padding:11px 16px;
+      border-radius:999px;
+      text-decoration:none;
+      font-weight:800;
+      font-size:.92rem;
+      background:rgba(255,255,255,.82);
+      border:1px solid var(--line);
+      box-shadow:0 8px 22px rgba(38,112,158,.08);
+      transition:.2s;
+    }
+
+    nav a:hover{
+      transform:translateY(-2px);
+      border-color:#9ed5ef;
+    }
+
+    nav .seat-link{
+      background:var(--text);
+      color:white;
+      border-color:var(--text);
+    }
+
+    nav .sim-link{
+      background:linear-gradient(135deg,var(--blue),var(--cyan));
+      color:white;
+      border:none;
+      box-shadow:0 12px 26px rgba(35,137,218,.25);
+    }
+
+    .hero-banner{
+      position:relative;
+      overflow:hidden;
+      background:rgba(255,255,255,.8);
+      border:1px solid rgba(190,224,240,.8);
+      border-radius:34px;
+      padding:30px;
+      box-shadow:var(--shadow);
+      margin-bottom:28px;
+    }
+
+    .main-title-banner{text-align:center}
+
+    .main-title-banner img{
+      width:100%;
+      max-width:780px;
+      height:auto;
+      display:block;
+      margin:0 auto;
+      filter:drop-shadow(0 16px 22px rgba(34,104,150,.12));
+    }
+
+    .clock-container{text-align:center;margin:30px 0 34px}
+
+    .clock-date{
+      font-size:1.15rem;
+      color:var(--blue-dark);
+      font-weight:800;
+      margin-bottom:4px;
+    }
+
+    .clock-time{
+      font-size:4.35rem;
+      font-weight:900;
+      line-height:1;
+      letter-spacing:-.06em;
+      font-variant-numeric:tabular-nums;
+      color:var(--text);
+    }
+
+    .hero{display:grid;gap:24px}
+
+    .card{
+      background:rgba(255,255,255,.92);
+      border:1px solid var(--line);
+      border-radius:26px;
+      padding:28px;
+      box-shadow:var(--shadow);
+    }
+
+    .card-title-row{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+      margin-bottom:18px;
+    }
+
+    h2{
+      margin:0;
+      font-size:1.42rem;
+      letter-spacing:-.025em;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    h3{margin:0 0 10px;font-size:1.08rem}
+    p{margin:0;color:var(--muted)}
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:14px 18px;
+      border-radius:15px;
+      border:1px solid var(--line);
+      background:white;
+      color:var(--text);
+      font-weight:850;
+      text-decoration:none;
+      cursor:pointer;
+      transition:.2s;
+    }
+
+    .btn:hover{
+      transform:translateY(-2px);
+      box-shadow:0 10px 24px rgba(31,112,160,.13);
+    }
+
+    .btn-seating{
+      width:100%;
+      background:linear-gradient(135deg,#263f5f,#162d48);
+      color:white;
+      border:none;
+      font-size:1.05rem;
+      box-shadow:0 12px 28px rgba(22,50,79,.22);
+    }
+
+    .classroom-intro{
+      background:linear-gradient(135deg,#eff9ff,#f5fffb);
+      border:1px solid #cdeaf4;
+      padding:22px;
+      border-radius:20px;
+      margin-bottom:20px;
+    }
+
+    .classGrid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:15px;
+    }
+
+    .class-btn{
+      position:relative;
+      overflow:hidden;
+      padding:20px;
+      border:1px solid var(--line);
+      border-radius:19px;
+      background:white;
+      text-align:left;
+      cursor:pointer;
+      transition:.22s;
+      box-shadow:0 8px 20px rgba(32,110,155,.07);
+    }
+
+    .class-btn::after{
+      content:"↗";
+      position:absolute;
+      right:18px;
+      top:18px;
+      font-weight:900;
+      color:var(--blue);
+    }
+
+    .class-btn:hover{
+      transform:translateY(-3px);
+      border-color:#9cd8ee;
+      box-shadow:0 15px 30px rgba(32,110,155,.13);
+    }
+
+    .class-btn b{
+      display:block;
+      font-size:1.16rem;
+      color:var(--text);
+      margin-bottom:4px;
+    }
+
+    .class-btn small{
+      color:var(--muted);
+      font-weight:700;
+    }
+
+    .class-btn.unset{background:linear-gradient(145deg,#fff,#f8fcff)}
+
+    .class-btn.unset::before{
+      content:"링크 입력 대기";
+      display:inline-block;
+      margin-top:12px;
+      padding:5px 9px;
+      border-radius:999px;
+      background:#fff4d4;
+      color:#926700;
+      font-size:.72rem;
+      font-weight:900;
+    }
+
+    .postList{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    .post{
+      display:flex;
+      gap:14px;
+      padding:17px;
+      background:#f8fcff;
+      border:1px solid #e1eff6;
+      border-radius:17px;
+    }
+
+    .post-num{
+      flex:0 0 34px;
+      width:34px;
+      height:34px;
+      border-radius:12px;
+      display:grid;
+      place-items:center;
+      background:var(--yellow);
+      color:#6f5100;
+      font-weight:900;
+      font-size:.86rem;
+    }
+
+    .post-content{flex:1;min-width:0}
+    .post-head{display:flex;justify-content:space-between;gap:12px;margin-bottom:5px}
+    .post-title{font-weight:900;color:var(--text)}
+    .post-date{font-size:.82rem;color:var(--muted);white-space:nowrap}
+    .post-body{font-size:.95rem;color:var(--muted);white-space:pre-wrap}
+
+    .seat-card{background:linear-gradient(135deg,#f6fbff,#fffaf0)}
+
+    .seat-card-inner{
+      display:grid;
+      grid-template-columns:1fr auto;
+      align-items:center;
+      gap:22px;
+    }
+
+    .seat-icon{
+      width:92px;
+      height:92px;
+      border-radius:25px;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(135deg,var(--yellow),#ffec9a);
+      font-size:42px;
+      box-shadow:0 14px 28px rgba(245,180,54,.2);
+    }
+
+    .toast{
+      position:fixed;
+      left:50%;
+      bottom:28px;
+      transform:translate(-50%,30px);
+      background:#16324f;
+      color:#fff;
+      padding:13px 22px;
+      border-radius:999px;
+      opacity:0;
+      pointer-events:none;
+      transition:.25s;
+      z-index:9999;
+      font-weight:800;
+      box-shadow:0 12px 35px rgba(0,0,0,.2);
+    }
+
+    .toast.show{
+      opacity:1;
+      transform:translate(-50%,0);
+    }
+
+    .agent-fab{
+      position:fixed;
+      right:24px;
+      bottom:24px;
+      width:80px;
+      height:80px;
+      border:none;
+      border-radius:50%;
+      background:linear-gradient(135deg,#10263d,#1f4d78);
+      color:#fff;
+      font-size:34px;
+      font-weight:900;
+      box-shadow:0 18px 35px rgba(16,38,61,.35);
+      cursor:pointer;
+      z-index:10000;
+      transition:.2s;
+    }
+
+    .agent-fab:hover{transform:translateY(-2px)}
+
+    .agent-panel{
+      position:fixed;
+      top:0;
+      right:-430px;
+      width:410px;
+      max-width:95vw;
+      height:100dvh;
+      max-height:100dvh;
+      background:#16324f;
+      box-shadow:-18px 0 50px rgba(9,24,39,.32);
+      z-index:10001;
+      transition:right .28s ease;
+      display:flex;
+      flex-direction:column;
+      border-left:1px solid #2f5274;
+      overflow:hidden;
+      min-height:0;
+    }
+
+    .agent-panel.open{right:0}
+
+    .agent-header{
+      flex:0 0 auto;
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:14px;
+      padding:18px 18px 14px;
+      border-bottom:1px solid #2f5274;
+      background:#10263d;
+      min-height:0;
+    }
+
+    .agent-title-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,.12);
+      color:#ffffff;
+      font-size:.82rem;
+      font-weight:900;
+      letter-spacing:-.01em;
+      margin-bottom:8px;
+    }
+
+    .agent-title{
+      font-size:1rem;
+      font-weight:900;
+      color:#ffffff;
+    }
+
+    .agent-sub{
+      font-size:.78rem;
+      color:#bcd0e4;
+      margin-top:4px;
+    }
+
+    .agent-header-actions{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex:0 0 auto;
+    }
+
+    .agent-pdf-btn{
+      border:none;
+      background:#2a78b8;
+      color:#fff;
+      min-width:52px;
+      height:38px;
+      border-radius:12px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .agent-close{
+      border:none;
+      background:rgba(255,255,255,.1);
+      color:#fff;
+      width:38px;
+      height:38px;
+      border-radius:12px;
+      box-shadow:none;
+      cursor:pointer;
+    }
+
+    .agent-messages{
+      flex:1 1 auto;
+      min-height:0;
+      min-width:0;
+      height:0;
+      overflow-y:auto;
+      overflow-x:hidden;
+      padding:16px 16px 28px;
+      background:linear-gradient(180deg,#16324f 0%,#1b3b5c 100%);
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      -webkit-overflow-scrolling:touch;
+      overscroll-behavior:contain;
+      scroll-behavior:smooth;
+      align-items:stretch;
+    }
+
+    .agent-msg{
+      display:block;
+      width:fit-content;
+      max-width:92%;
+      min-width:0;
+      padding:12px 14px;
+      border-radius:18px;
+      line-height:1.62;
+      font-size:14px;
+      box-shadow:0 8px 20px rgba(8,22,36,.18);
+      flex:0 0 auto;
+      overflow:visible;
+      word-break:break-word;
+      overflow-wrap:anywhere;
+      white-space:normal;
+    }
+
+    .agent-msg.bot{
+      background:#f4f9ff;
+      border:1px solid #d7e6f5;
+      color:#16324f;
+      align-self:flex-start;
+    }
+
+    .agent-msg.user{
+      background:linear-gradient(135deg,#2a78b8,#52c7d9);
+      color:#fff;
+      align-self:flex-end;
+    }
+
+    .agent-msg *{
+      max-width:none;
+      text-overflow:clip;
+      word-break:break-word;
+      overflow-wrap:anywhere;
+    }
+
+    .agent-msg p{
+      margin:0 0 10px;
+      color:inherit;
+      max-width:none;
+      white-space:pre-wrap;
+      word-break:break-word;
+      overflow-wrap:anywhere;
+      overflow:visible;
+    }
+
+    .agent-msg p:last-child{margin-bottom:0}
+
+    .agent-msg mjx-container{
+      margin:.45em 0 !important;
+      max-width:100% !important;
+    }
+
+    .agent-msg mjx-container[display="true"]{
+      display:block !important;
+      width:100%;
+      max-width:100%;
+      overflow-x:auto;
+      overflow-y:hidden;
+      padding-bottom:6px;
+    }
+
+    .agent-msg svg{
+      height:auto !important;
+      max-width:none !important;
+    }
+
+    .agent-msg pre{
+      background:#0f2236;
+      color:#eef6ff;
+      padding:12px 14px;
+      border-radius:12px;
+      overflow:auto;
+      font-size:.84rem;
+      line-height:1.5;
+      white-space:pre-wrap;
+      word-break:break-word;
+      overflow-wrap:anywhere;
+    }
+
+    .agent-msg code{
+      font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+      white-space:pre-wrap;
+      word-break:break-word;
+      overflow-wrap:anywhere;
+    }
+
+    .agent-quick{
+      flex:0 0 auto;
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      padding:14px 16px 10px;
+      background:#16324f;
+      border-top:1px solid #2f5274;
+      min-height:0;
+    }
+
+    .quick-btn{
+      border:1px solid #426787;
+      background:#224261;
+      color:#eef6ff;
+      padding:8px 11px;
+      border-radius:999px;
+      font-size:.78rem;
+      font-weight:800;
+      cursor:pointer;
+    }
+
+    .agent-input{
+      flex:0 0 auto;
+      display:flex;
+      gap:10px;
+      padding:12px 16px calc(18px + var(--safe-bottom));
+      background:#10263d;
+      border-top:1px solid #2f5274;
+      min-height:0;
+    }
+
+    .agent-input input{
+      flex:1 1 auto;
+      min-width:0;
+      min-height:48px;
+      border:1px solid #426787;
+      border-radius:15px;
+      padding:0 14px;
+      background:#183552;
+      color:#eef6ff;
+      font-size:14px;
+    }
+
+    .agent-input input::placeholder{color:#a9bfd4}
+
+    .agent-input button{
+      flex:0 0 auto;
+      border:none;
+      border-radius:15px;
+      background:linear-gradient(135deg,#2a78b8,#52c7d9);
+      color:#fff;
+      font-weight:900;
+      padding:0 16px;
+      min-width:74px;
+      cursor:pointer;
+      font-size:14px;
+    }
+
+    footer{
+      margin-top:52px;
+      text-align:center;
+      color:var(--muted);
+      font-size:.84rem;
+    }
+
+    @media(max-width:720px){
+      body{font-size:17px}
+      .wrap{padding:14px 14px 48px}
+      header{align-items:flex-start;flex-direction:column}
+      .brand{width:100%}
+      nav{width:100%;justify-content:flex-start}
+      nav a{flex:1;text-align:center;padding:10px 12px}
+      .hero-banner{padding:20px 14px;border-radius:25px}
+      .clock-time{font-size:3.25rem}
+      .classGrid{grid-template-columns:1fr}
+      .card{padding:21px;border-radius:22px}
+      .seat-card-inner{grid-template-columns:1fr}
+      .seat-icon{display:none}
+      .post-head{flex-direction:column;gap:2px}
+      .post-date{white-space:normal}
+      .agent-panel{
+        width:100%;
+        max-width:100%;
+        right:-100%;
+      }
+      .agent-fab{
+        right:18px;
+        bottom:18px;
+        width:68px;
+        height:68px;
+        font-size:30px;
+      }
+      .agent-messages{
+        padding:14px 14px 24px;
+      }
+      .agent-msg{
+        max-width:96%;
+        font-size:13px;
+        line-height:1.6;
+      }
+      .agent-msg p{
+        font-size:13px;
+        line-height:1.6;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand"><span class="brand-mark">⚛️</span><span>2026학년도 전자기와 양자</span></div>
+      <nav>
+        <a href="#classroom">구글 클래스룸</a>
+        <a href="https://impetus-max.github.io/physics-class-p9/" target="_blank" rel="noopener noreferrer" class="sim-link">시뮬레이션</a>
+        <a href="seating_system.html" target="_blank" class="seat-link">좌석 배치 시스템 →</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero-banner">
+        <div class="main-title-banner">
+          <img src="111.png" alt="2026학년도 2학기 동북고등학교 전자기와 양자">
+        </div>
+      </section>
+
+      <div class="clock-container">
+        <div class="clock-date" id="clockDate"></div>
+        <div class="clock-time" id="clockTime">00:00:00</div>
+      </div>
+
+      <section class="hero">
+        <div class="card">
+          <div class="card-title-row">
+            <h2>📢 공지사항</h2>
+            <button class="btn" id="refreshNoticeBtn">새로고침</button>
+          </div>
+          <div class="postList" id="postList">
+            <div style="padding:20px;text-align:center;color:var(--muted)">공지사항을 불러오는 중...</div>
+          </div>
+        </div>
+
+        <div class="card" id="classroom">
+          <div class="card-title-row"><h2>🎓 구글 클래스룸 이동반 접속</h2></div>
+          <div class="classroom-intro"><h3>이동반을 선택하세요.</h3></div>
+          <div class="classGrid">
+            <button class="class-btn unset" data-class="A"><b>전자기와 양자 A반</b><small>월요일 2교시 / 수요일 5교시 / 목요일 1교시</small></button>
+            <button class="class-btn unset" data-class="C"><b>전자기와 양자 C반</b><small>화요일 3교시 / 수요일 1교시 / 금요일 4교시</small></button>
+            <button class="class-btn unset" data-class="D"><b>전자기와 양자 D반</b><small>월요일 5교시 / 수요일 2교시 / 목요일 5교시</small></button>
+            <button class="class-btn unset" data-class="E"><b>전자기와 양자 E반</b><small>월요일 6교시 / 화요일 2교시 / 목요일 2교시</small></button>
+          </div>
+        </div>
+
+        <div class="card seat-card">
+          <div class="seat-card-inner">
+            <div>
+              <h2>🪑 좌석 배치 시스템</h2>
+              <p style="margin:10px 0 20px">원하는 좌석을 클릭하면 게임이 시작됩니다.</p>
+              <a class="btn btn-seating" href="seating_system.html" target="_blank">좌석 배치 시스템 열기</a>
+            </div>
+            <div class="seat-icon">🧑‍🔬</div>
+          </div>
+        </div>
+      </section>
+
+      <footer>© <span id="year"></span> 변재윤. All rights reserved.</footer>
+    </main>
+  </div>
+
+  <div class="toast" id="toast">알림</div>
+
+  <button id="agentFab" class="agent-fab" aria-label="학습 도우미 열기">🤖</button>
+
+  <aside id="agentPanel" class="agent-panel" aria-hidden="true">
+    <div class="agent-header">
+      <div>
+        <div class="agent-title-badge">학습도우미</div>
+        <div class="agent-title">전자기와 양자 AI 튜터</div>
+        <div class="agent-sub">개념 설명 · 문제 힌트 · 오답 피드백 · LaTeX 수식 표시</div>
+      </div>
+      <div class="agent-header-actions">
+        <button id="downloadPdfBtn" class="agent-pdf-btn" aria-label="대화 PDF 저장">PDF</button>
+        <button id="agentClose" class="agent-close" aria-label="학습 도우미 닫기">✕</button>
+      </div>
+    </div>
+
+    <div id="agentMessages" class="agent-messages">
+      <div class="agent-msg bot"><p>안녕하세요. 전자기와 양자 학습도우미입니다.<br>개념 설명, 문제 풀이 힌트, 오답 분석을 도와드릴게요.<br></div>
+    </div>
+
+    <div class="agent-quick">
+      <button class="quick-btn" data-prompt="여기서 핵심 개념을 수식과 함께 설명해줘">개념 설명</button>
+      <button class="quick-btn" data-prompt="이 단원에서 자주 하는 실수를 수식과 함께 알려줘">오답 피드백</button>
+      <button class="quick-btn" data-prompt="서술형 문제 2개를 만들고 풀이에 필요한 수식도 보여줘">문항 생성</button>
+    </div>
+
+    <form id="agentForm" class="agent-input">
+      <input id="agentText" type="text" placeholder="질문을 입력하세요" />
+      <button type="submit">전송</button>
+    </form>
+  </aside>
+
+  <script>
+    const CLASSROOM_LINKS = {
+      A: "https://classroom.google.com/c/ODcxNDk5NzA5NTAy?cjc=oocv7uap",
+      C: "https://classroom.google.com/c/ODcxNTU4ODE2NTM5?cjc=pzh3kf5z",
+      D: "https://classroom.google.com/c/ODU1NzM3MzIzNTQ4?cjc=ycfmehba",
+      E: "https://classroom.google.com/c/ODcxNTYwMDI3MDgx?cjc=exvyj32t"
+    };
+
+    function updateClock(){
+      const now = new Date();
+      document.getElementById('clockDate').textContent =
+        now.toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric',weekday:'long'});
+      document.getElementById('clockTime').textContent =
+        now.toLocaleTimeString('ko-KR',{hour12:false});
+    }
+    setInterval(updateClock,1000);
+    updateClock();
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const NOTICE_API="https://script.google.com/macros/s/AKfycbxy2fOj6JJWrRHEvv686yNjYNvKup5ArN5dFGZZVBmQFZ7GzB76ylKTxn39se-fdXDQ/exec";
+
+    async function loadNotices(){
+      const list=document.getElementById('postList');
+      try{
+        const res=await fetch(NOTICE_API);
+        const data=await res.json();
+        const items=data.items||[];
+        if(!items.length){
+          list.innerHTML='<div style="padding:20px;text-align:center;color:var(--muted)">공지사항이 없습니다.</div>';
+          return;
+        }
+        list.innerHTML=items.map((it,idx)=>`
+          <div class="post">
+            <div class="post-num">${items.length-idx}</div>
+            <div class="post-content">
+              <div class="post-head">
+                <span class="post-title">${it.title}</span>
+                <span class="post-date">${it.date}</span>
+              </div>
+              <div class="post-body">${it.content}</div>
+            </div>
+          </div>
+        `).join('');
+      }catch(e){
+        list.innerHTML='<div style="padding:20px;text-align:center;color:#c84a40">공지를 불러오지 못했습니다.</div>';
+      }
+    }
+    document.getElementById('refreshNoticeBtn').addEventListener('click',loadNotices);
+    loadNotices();
+
+    function showToast(message){
+      const t=document.getElementById('toast');
+      t.textContent=message;
+      t.classList.add('show');
+      setTimeout(()=>t.classList.remove('show'),2200);
+    }
+
+    document.querySelectorAll('.class-btn').forEach(btn=>{
+      const key=btn.dataset.class;
+      const url=(CLASSROOM_LINKS[key]||'').trim();
+      if(url) btn.classList.remove('unset');
+      btn.addEventListener('click',()=>{
+        const target=(CLASSROOM_LINKS[key]||'').trim();
+        if(!target){
+          showToast(`전자기와 양자 ${key}반 클래스룸 링크를 먼저 입력하세요.`);
+          return;
+        }
+        window.open(target,'_blank','noopener,noreferrer');
+      });
+    });
+
+    const agentFab = document.getElementById('agentFab');
+    const agentPanel = document.getElementById('agentPanel');
+    const agentClose = document.getElementById('agentClose');
+    const agentForm = document.getElementById('agentForm');
+    const agentText = document.getElementById('agentText');
+    const agentMessages = document.getElementById('agentMessages');
+    const quickBtns = document.querySelectorAll('.quick-btn');
+    const downloadPdfBtn = document.getElementById('downloadPdfBtn');
+
+    function escapeHtml(str){
+      return String(str)
+        .replace(/&/g,'&amp;')
+        .replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;');
+    }
+
+    function formatAgentMessage(text){
+      return escapeHtml(text)
+        .replace(/\n\n/g,'</p><p>')
+        .replace(/\n/g,'<br>');
+    }
+
+    function scrollAgentToBottom(force = false){
+      const maxScroll = agentMessages.scrollHeight - agentMessages.clientHeight;
+      if(force){
+        agentMessages.scrollTop = Math.max(0, maxScroll);
+        requestAnimationFrame(() => {
+          agentMessages.scrollTop = agentMessages.scrollHeight;
+        });
+        return;
+      }
+      const nearBottom = maxScroll - agentMessages.scrollTop < 120;
+      if(nearBottom){
+        agentMessages.scrollTop = Math.max(0, maxScroll);
+        requestAnimationFrame(() => {
+          agentMessages.scrollTop = agentMessages.scrollHeight;
+        });
+      }
+    }
+
+    function renderMathInElement(el){
+      if(window.MathJax && window.MathJax.typesetPromise){
+        MathJax.typesetClear([el]);
+        MathJax.typesetPromise([el]).then(() => {
+          scrollAgentToBottom(true);
+        }).catch(()=>{});
+      }
+    }
+
+    function openAgent(){
+      agentPanel.classList.add('open');
+      agentPanel.setAttribute('aria-hidden','false');
+      requestAnimationFrame(() => scrollAgentToBottom(true));
+      setTimeout(() => scrollAgentToBottom(true), 120);
+    }
+
+    function closeAgent(){
+      agentPanel.classList.remove('open');
+      agentPanel.setAttribute('aria-hidden','true');
+    }
+
+    function addAgentMessage(text, role='bot', isTemporary=false){
+      const div = document.createElement('div');
+      div.className = `agent-msg ${role}`;
+      div.innerHTML = `<p>${formatAgentMessage(text)}</p>`;
+      if(isTemporary) div.dataset.temp = 'true';
+      agentMessages.appendChild(div);
+
+      scrollAgentToBottom(true);
+
+      if(role === 'bot'){
+        renderMathInElement(div);
+      }else{
+        scrollAgentToBottom(true);
+      }
+
+      setTimeout(() => scrollAgentToBottom(true), 50);
+      setTimeout(() => scrollAgentToBottom(true), 150);
+      setTimeout(() => scrollAgentToBottom(true), 350);
+      return div;
+    }
+
+    async function askAgent(prompt){
+      addAgentMessage(prompt, 'user');
+      const loading = addAgentMessage('응답 생성 중입니다...', 'bot', true);
+
+      try{
+        const res = await fetch('./api/agent.php', {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({ prompt })
+        });
+
+        const data = await res.json();
+        loading.remove();
+        scrollAgentToBottom(true);
+
+        if(!res.ok){
+          addAgentMessage(data.error || '에이전트 호출에 실패했습니다.', 'bot');
+          return;
+        }
+
+        addAgentMessage(data.reply || '응답이 없습니다.', 'bot');
+      }catch(e){
+        loading.remove();
+        scrollAgentToBottom(true);
+        addAgentMessage('서버 연결 중 오류가 발생했습니다.', 'bot');
+      }
+    }
+
+    function downloadChatAsPdf(){
+      const renderedChatHtml = agentMessages.innerHTML;
+      const win = window.open('', '_blank', 'width=900,height=1000');
+
+      if(!win){
+        showToast('팝업이 차단되었습니다. 팝업 허용 후 다시 시도하세요.');
+        return;
+      }
+
+      win.document.open();
+      win.document.write(`
+        <!doctype html>
+        <html lang="ko">
+        <head>
+          <meta charset="utf-8">
+          <title>학습도우미 대화 내역</title>
+          <style>
+            body{
+              font-family:'Pretendard','Noto Sans KR',sans-serif;
+              margin:32px;
+              color:#16324f;
+              background:#fff;
+              line-height:1.65;
+            }
+            h1{margin:0 0 20px;font-size:24px}
+            .meta{margin-bottom:20px;color:#60758c;font-size:14px}
+            .agent-msg{
+              display:block;
+              width:fit-content;
+              max-width:100%;
+              margin-bottom:14px;
+              padding:14px 16px;
+              border-radius:14px;
+              border:1px solid #d9eaf5;
+              font-size:14px;
+              page-break-inside:avoid;
+              overflow:visible;
+              word-break:break-word;
+              overflow-wrap:anywhere;
+              white-space:normal;
+            }
+            .agent-msg.user{background:#eef8ff;margin-left:auto}
+            .agent-msg.bot{background:#ffffff}
+            .agent-msg p{
+              margin:0 0 10px;
+              overflow:visible;
+              line-height:1.6;
+              white-space:pre-wrap;
+              word-break:break-word;
+              overflow-wrap:anywhere;
+            }
+            .agent-msg p:last-child{margin-bottom:0}
+            mjx-container{margin:.4em 0 !important;max-width:100% !important}
+            mjx-container[display="true"]{
+              display:block !important;
+              width:100%;
+              max-width:100%;
+              overflow-x:auto !important;
+              overflow-y:hidden !important;
+              padding-bottom:4px;
+            }
+            svg{height:auto !important;max-width:none !important}
+            @media print{body{margin:18mm}}
+          </style>
+        </head>
+        <body>
+          <h1>학습도우미 대화 내역</h1>
+          <div class="meta">출력 시각: ${new Date().toLocaleString('ko-KR')}</div>
+          <div id="chatExport">${renderedChatHtml}</div>
+        </body>
+        </html>
+      `);
+      win.document.close();
+
+      setTimeout(() => {
+        win.focus();
+        win.print();
+      }, 1200);
+    }
+
+    agentFab.addEventListener('click', openAgent);
+    agentClose.addEventListener('click', closeAgent);
+    downloadPdfBtn.addEventListener('click', downloadChatAsPdf);
+
+    agentForm.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const prompt = agentText.value.trim();
+      if(!prompt) return;
+      agentText.value = '';
+      askAgent(prompt);
+    });
+
+    quickBtns.forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        askAgent(btn.dataset.prompt);
+      });
+    });
+
+    window.addEventListener('load', ()=>{
+      const firstBot = document.querySelector('.agent-msg.bot');
+      if(firstBot){
+        renderMathInElement(firstBot);
+      }
+      scrollAgentToBottom(true);
+    });
+
+    window.addEventListener('resize', ()=>{
+      if(agentPanel.classList.contains('open')){
+        scrollAgentToBottom(true);
+      }
+    });
+  </script>
+</body>
+</html>
